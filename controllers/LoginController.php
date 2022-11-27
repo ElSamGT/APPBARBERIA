@@ -22,7 +22,9 @@ class LoginController {
                     // Verificar el password
                     if( $usuario->comprobarPasswordAndVerificado($auth->password) ) {
                         // Autenticar el usuario
-                        session_start();
+                        if(!isset($_SESSION)) {
+                            session_start();
+                        };
 
                         $_SESSION['id'] = $usuario->id;
                         $_SESSION['nombre'] = $usuario->nombre . " " . $usuario->apellido;
@@ -52,7 +54,9 @@ class LoginController {
     }
 
     public static function logout() {
-        session_start();
+        if(!isset($_SESSION)) {
+            session_start();
+        };
         $_SESSION = [];
         header('Location: /');
     }
